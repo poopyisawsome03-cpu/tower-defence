@@ -17,6 +17,16 @@ let spawning = false;
 let mouseX = 0;
 let mouseY = 0;
 
+function getCanvasCoords(event) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return {
+        x: (event.clientX - rect.left) * scaleX,
+        y: (event.clientY - rect.top) * scaleY
+    };
+}
+
 // UI Elements
 const mainMenu = document.getElementById('main-menu');
 const gameContainer = document.getElementById('game-container');
@@ -145,9 +155,7 @@ function sellSelectedTower() {
 }
 
 canvas.addEventListener('mousedown', (e) => {
-    // Better coordinate mapping
-    const x = e.offsetX;
-    const y = e.offsetY;
+    const { x, y } = getCanvasCoords(e);
 
     // Check if clicked on existing tower
     const clickedTower = towers.find(t => 
@@ -176,8 +184,9 @@ canvas.addEventListener('mousedown', (e) => {
 });
 
 canvas.addEventListener('mousemove', (e) => {
-    mouseX = e.offsetX;
-    mouseY = e.offsetY;
+    const coords = getCanvasCoords(e);
+    mouseX = coords.x;
+    mouseY = coords.y;
 });
 
 function startWave() {
