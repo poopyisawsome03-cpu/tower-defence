@@ -43,6 +43,32 @@ const TOWER_TYPES = {
             { name: "Heavy Ordnance", cost: 250, range: 240, fireRate: 60, damage: 150, splashRadius: 120, color: "#b34700" },
             { name: "Nuclear Battery", cost: 500, range: 350, fireRate: 50, damage: 400, splashRadius: 200, color: "#8a3100" }
         ]
+    },
+    sniper: {
+        name: "Sniper",
+        cost: 250,
+        range: 400,
+        fireRate: 150,
+        damage: 120,
+        color: "#95a5a6",
+        upgrades: [
+            { name: "Marksman", cost: 200, range: 450, fireRate: 130, damage: 250, color: "#7f8c8d" },
+            { name: "Anti-Tank Rifle", cost: 400, range: 550, fireRate: 110, damage: 600, color: "#2c3e50" },
+            { name: "Orbit Hammer", cost: 800, range: 800, fireRate: 180, damage: 2500, color: "#000000" }
+        ]
+    },
+    tesla: {
+        name: "Tesla",
+        cost: 300,
+        range: 180,
+        fireRate: 15,
+        damage: 8,
+        color: "#f1c40f",
+        upgrades: [
+            { name: "Voltage Spike", cost: 250, range: 200, fireRate: 12, damage: 15, color: "#f39c12" },
+            { name: "Chain Lightning", cost: 500, range: 250, fireRate: 10, damage: 40, color: "#e67e22" },
+            { name: "Lightning Storm", cost: 1000, range: 350, fireRate: 5, damage: 100, color: "#d35400" }
+        ]
     }
 };
 

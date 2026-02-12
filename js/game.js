@@ -39,8 +39,7 @@ const upgradeCostEl = document.getElementById('upgrade-cost');
 const sellPriceEl = document.getElementById('sell-price');
 const towerNameEl = document.getElementById('tower-name');
 const towerStatsEl = document.getElementById('tower-stats');
-const wavePreviewEl = document.getElementById('wave-preview');
-
+const wavePreviewEl = document.getElementById('wave-preview');const cancelPlacementBtn = document.getElementById('cancel-placement');
 function startGame(mapIndex) {
     mainMenu.classList.add('hidden');
     gameContainer.classList.remove('hidden');
@@ -74,6 +73,13 @@ function updateUI() {
     moneyEl.textContent = money;
     livesEl.textContent = lives;
     waveEl.textContent = wave;
+
+    // Show/hide cancel button
+    if (selectedTowerType) {
+        cancelPlacementBtn.classList.remove('hidden');
+    } else {
+        cancelPlacementBtn.classList.add('hidden');
+    }
 
     // Update shop buttons with affordability
     document.querySelectorAll('.shop-item').forEach(btn => {
@@ -187,6 +193,12 @@ canvas.addEventListener('mousemove', (e) => {
     const coords = getCanvasCoords(e);
     mouseX = coords.x;
     mouseY = coords.y;
+});
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        deselectTower();
+    }
 });
 
 function startWave() {

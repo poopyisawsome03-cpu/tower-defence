@@ -112,6 +112,7 @@ canvas {
     border-radius: 10px;
     cursor: crosshair;
     display: block;
+    flex-shrink: 0;
     image-rendering: pixelated; /* Keeps lines sharp */
 }
 

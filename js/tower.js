@@ -194,9 +194,53 @@ class Tower {
             ctx.arc(r * 0.8, -5.5, 3, 0, Math.PI * 2);
             ctx.arc(r * 0.8, 5.5, 3, 0, Math.PI * 2);
             ctx.fill();
+        } else if (this.typeId === 'sniper') {
+            // Sniper - long thin barrel
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(0, 0, r * 0.45, 0, Math.PI * 2);
+            ctx.fill();
+            // Long Barrel
+            ctx.fillStyle = "#333";
+            ctx.fillRect(r * 0.2, -3, r * 1.5, 6);
+            // Scope
+            ctx.fillStyle = "#111";
+            ctx.fillRect(r * 0.3, -6, r * 0.6, 3);
+            // Muzzle flash spot
+            ctx.fillStyle = "rgba(149, 165, 166, 0.3)";
+            ctx.beginPath();
+            ctx.arc(r * 1.7, 0, 5, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.typeId === 'tesla') {
+            // Tesla - energy coils
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(0, 0, r * 0.6, 0, Math.PI * 2);
+            ctx.fill();
+            // Coils
+            ctx.strokeStyle = "#fff";
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                ctx.arc(0, 0, r * (0.3 + i * 0.2), 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            // Lightning rod
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(-2, -r * 1.2, 4, r * 1.2);
+            // Top orb
+            ctx.fillStyle = "#00ffff";
+            ctx.beginPath();
+            ctx.arc(0, -r * 1.2, 5, 0, Math.PI * 2);
+            ctx.fill();
+            // Glow
+            const pulse = (Math.sin(Date.now() / 100) + 1) * 0.5;
+            ctx.shadowBlur = 10 * pulse;
+            ctx.shadowColor = "#00ffff";
         }
 
         ctx.restore();
+        ctx.shadowBlur = 0; // Reset shadow
 
         // Level indicators (stars)
         for (let i = 0; i < this.level; i++) {
