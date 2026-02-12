@@ -3,7 +3,9 @@ class GameMap {
         this.difficulty = difficulty;
         this.path = [];
         this.decorations = [];
+        this.bgElements = [];
         this.generatePath();
+        this.generateBackground();
         this.generateDecorations();
     }
 
@@ -54,6 +56,28 @@ class GameMap {
         }
     }
 
+    generateBackground() {
+        this.bgElements = [];
+        if (this.difficulty === 0) {
+            for (let i = 0; i < 100; i++) {
+                this.bgElements.push({
+                    x: Math.random() * CANVAS_WIDTH,
+                    y: Math.random() * CANVAS_HEIGHT,
+                    w: 2,
+                    h: 8
+                });
+            }
+        } else if (this.difficulty === 1) {
+            for (let x = 0; x < CANVAS_WIDTH; x += 80) {
+                this.bgElements.push({
+                    x: x,
+                    h: 50 + Math.random() * 100,
+                    w: 60
+                });
+            }
+        }
+    }
+
     generateDecorations() {
         this.decorations = [];
         const count = 15 + this.difficulty * 5;
@@ -68,12 +92,19 @@ class GameMap {
             } while (this.isNearPath(x, y) && attempts < 20);
             
             if (attempts < 20) {
-                this.decorations.push({
+                const type = this.getDecorationType();
+                const deco = {
                     x, y,
-                    type: this.getDecorationType(),
+                    type: type,
                     size: 10 + Math.random() * 15,
                     rotation: Math.random() * Math.PI * 2
-                });
+                };
+
+                if (type === 'flower') {
+                    deco.color = ["#e91e63", "#9c27b0", "#ffeb3b"][Math.floor(Math.random() * 3)];
+                }
+
+                this.decorations.push(deco);
             }
         }
     }
@@ -136,16 +167,15 @@ class GameMap {
         if (this.difficulty === 0) {
             // Grass texture
             ctx.fillStyle = "rgba(0,0,0,0.05)";
-            for (let i = 0; i < 100; i++) {
-                ctx.fillRect(Math.random() * CANVAS_WIDTH, Math.random() * CANVAS_HEIGHT, 2, 8);
-            }
+            this.bgElements.forEach(e => {
+                ctx.fillRect(e.x, e.y, e.w, e.h);
+            });
         } else if (this.difficulty === 1) {
             // Building silhouettes in background
             ctx.fillStyle = "rgba(0,0,0,0.2)";
-            for (let x = 0; x < CANVAS_WIDTH; x += 80) {
-                const h = 50 + Math.random() * 100;
-                ctx.fillRect(x, CANVAS_HEIGHT - h, 60, h);
-            }
+            this.bgElements.forEach(e => {
+                ctx.fillRect(e.x, CANVAS_HEIGHT - e.h, e.w, e.h);
+            });
         } else {
             // Fog effect
             const gradient = ctx.createRadialGradient(400, 300, 0, 400, 300, 500);
@@ -171,7 +201,7 @@ class GameMap {
         } else if (d.type === 'flower') {
             ctx.fillStyle = "#8bc34a";
             ctx.fillRect(-1, 0, 2, d.size * 0.5);
-            ctx.fillStyle = ["#e91e63", "#9c27b0", "#ffeb3b"][Math.floor(Math.random() * 3)];
+            ctx.fillStyle = d.color;
             ctx.beginPath();
             ctx.arc(0, -d.size * 0.2, d.size * 0.3, 0, Math.PI * 2);
             ctx.fill();
