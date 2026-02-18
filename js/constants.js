@@ -11,63 +11,63 @@ const TOWER_TYPES = {
         damage: 15,
         color: "#3498db",
         upgrades: [
-            { name: "Twin Sentry", cost: 80, range: 170, fireRate: 30, damage: 25, color: "#2980b9" },
-            { name: "Laser Turret", cost: 150, range: 200, fireRate: 20, damage: 60, color: "#1c5980" },
-            { name: "Hyper Railgun", cost: 350, range: 400, fireRate: 15, damage: 150, color: "#154360" }
+            { name: "Twin Sentry", cost: 100, range: 170, fireRate: 30, damage: 25, color: "#2980b9" },
+            { name: "Laser Turret", cost: 250, range: 200, fireRate: 20, damage: 60, color: "#1c5980" },
+            { name: "Hyper Railgun", cost: 600, range: 400, fireRate: 15, damage: 150, color: "#154360" }
         ]
     },
     slow: {
         name: "Frost Tower",
-        cost: 150,
+        cost: 125,
         range: 130,
         fireRate: 40,
         damage: 10,
         slowAmount: 0.6,
         color: "#00d2ff",
         upgrades: [
-            { name: "Ice Beam", cost: 100, range: 160, fireRate: 35, damage: 30, slowAmount: 0.5, color: "#00b2ee" },
-            { name: "Blizzard Emitter", cost: 200, range: 220, fireRate: 25, damage: 70, slowAmount: 0.4, color: "#0091bb" },
-            { name: "Absolute Zero", cost: 500, range: 300, fireRate: 20, damage: 150, slowAmount: 0.2, color: "#007090" }
+            { name: "Ice Beam", cost: 150, range: 160, fireRate: 35, damage: 30, slowAmount: 0.5, color: "#00b2ee" },
+            { name: "Blizzard Emitter", cost: 300, range: 220, fireRate: 25, damage: 70, slowAmount: 0.4, color: "#0091bb" },
+            { name: "Absolute Zero", cost: 800, range: 300, fireRate: 20, damage: 150, slowAmount: 0.2, color: "#007090" }
         ]
     },
     area: {
         name: "Bomber",
-        cost: 200,
+        cost: 250,
         range: 160,
         fireRate: 90,
         damage: 50,
         splashRadius: 70,
         color: "#e67e22",
         upgrades: [
-            { name: "Missile Pod", cost: 180, range: 200, fireRate: 70, damage: 100, splashRadius: 100, color: "#d35400" },
-            { name: "Heavy Ordnance", cost: 300, range: 260, fireRate: 60, damage: 250, splashRadius: 150, color: "#b34700" },
-            { name: "Nuclear Battery", cost: 600, range: 400, fireRate: 50, damage: 800, splashRadius: 250, color: "#8a3100" }
+            { name: "Missile Pod", cost: 250, range: 200, fireRate: 70, damage: 100, splashRadius: 100, color: "#d35400" },
+            { name: "Heavy Ordnance", cost: 500, range: 260, fireRate: 60, damage: 250, splashRadius: 150, color: "#b34700" },
+            { name: "Nuclear Battery", cost: 1200, range: 400, fireRate: 50, damage: 800, splashRadius: 250, color: "#8a3100" }
         ]
     },
     sniper: {
         name: "Sniper",
-        cost: 250,
+        cost: 350,
         range: 400,
         fireRate: 150,
         damage: 120,
         color: "#95a5a6",
         upgrades: [
-            { name: "Marksman", cost: 200, range: 500, fireRate: 120, damage: 350, color: "#7f8c8d" },
-            { name: "Anti-Tank Rifle", cost: 450, range: 650, fireRate: 100, damage: 1200, color: "#2c3e50" },
-            { name: "Orbit Hammer", cost: 1000, range: 1000, fireRate: 150, damage: 8000, color: "#000000" }
+            { name: "Marksman", cost: 300, range: 500, fireRate: 120, damage: 350, color: "#7f8c8d" },
+            { name: "Anti-Tank Rifle", cost: 700, range: 650, fireRate: 100, damage: 1200, color: "#2c3e50" },
+            { name: "Orbit Hammer", cost: 2000, range: 1000, fireRate: 150, damage: 8000, color: "#000000" }
         ]
     },
     tesla: {
         name: "Tesla",
-        cost: 300,
+        cost: 450,
         range: 180,
         fireRate: 15,
         damage: 10,
         color: "#f1c40f",
         upgrades: [
-            { name: "Voltage Spike", cost: 250, range: 220, fireRate: 12, damage: 25, color: "#f39c12" },
-            { name: "Chain Lightning", cost: 600, range: 280, fireRate: 10, damage: 80, color: "#e67e22" },
-            { name: "Lightning Storm", cost: 1200, range: 400, fireRate: 4, damage: 250, color: "#d35400" }
+            { name: "Voltage Spike", cost: 400, range: 220, fireRate: 12, damage: 25, color: "#f39c12" },
+            { name: "Chain Lightning", cost: 900, range: 280, fireRate: 10, damage: 80, color: "#e67e22" },
+            { name: "Lightning Storm", cost: 2500, range: 400, fireRate: 4, damage: 250, color: "#d35400" }
         ]
     }
 };
