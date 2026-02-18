@@ -39,7 +39,9 @@ const upgradeCostEl = document.getElementById('upgrade-cost');
 const sellPriceEl = document.getElementById('sell-price');
 const towerNameEl = document.getElementById('tower-name');
 const towerStatsEl = document.getElementById('tower-stats');
-const wavePreviewEl = document.getElementById('wave-preview');const cancelPlacementBtn = document.getElementById('cancel-placement');
+const wavePreviewEl = document.getElementById('wave-preview');
+const cancelPlacementBtn = document.getElementById('cancel-placement');
+const autoWaveCheck = document.getElementById('auto-wave-check');
 function startGame(mapIndex) {
     mainMenu.classList.add('hidden');
     gameContainer.classList.remove('hidden');
@@ -233,10 +235,11 @@ function startWave() {
 
     // Spawn enemies with delay
     let spawnIndex = 0;
+    const hpMultiplier = waveData.hpMultiplier || 1;
     const spawnDelay = Math.max(200, 800 - wave * 30);
     const spawnInterval = setInterval(() => {
         if (spawnIndex < spawnQueue.length) {
-            enemies.push(new Enemy(spawnQueue[spawnIndex], currentMap.path));
+            enemies.push(new Enemy(spawnQueue[spawnIndex], currentMap.path, hpMultiplier));
             spawnIndex++;
         } else {
             clearInterval(spawnInterval);
@@ -288,6 +291,11 @@ function update() {
         const bonus = wave * 10;
         money += bonus;
         updateWavePreview();
+
+        // Auto-wave functionality
+        if (autoWaveCheck && autoWaveCheck.checked) {
+            setTimeout(startWave, 1000);
+        }
     }
 
     updateUI();

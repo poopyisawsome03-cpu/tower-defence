@@ -249,6 +249,36 @@ canvas {
     box-shadow: 0 5px 20px rgba(231, 76, 60, 0.5);
 }
 
+.wave-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.auto-wave-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.auto-wave-container input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.auto-wave-container label {
+    font-size: 1em;
+    cursor: pointer;
+    user-select: none;
+}
+
 #back-to-menu {
     background: #7f8c8d;
     color: white;

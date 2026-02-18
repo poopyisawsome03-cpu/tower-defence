@@ -1,10 +1,10 @@
 class Enemy {
-    constructor(type, path) {
+    constructor(type, path, hpMultiplier = 1) {
         this.type = type;
         const stats = ZOMBIE_TYPES[type];
         this.name = stats.name;
-        this.maxHealth = stats.health;
-        this.health = stats.health;
+        this.maxHealth = stats.health * hpMultiplier;
+        this.health = this.maxHealth;
         this.speed = stats.speed;
         this.baseSpeed = stats.speed;
         this.color = stats.color;
@@ -76,7 +76,7 @@ class Enemy {
 
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle + Math.PI/2);
+        // Enemies stay facing up
 
         const r = this.radius;
         const wobble = Math.sin(this.animFrame) * 2;

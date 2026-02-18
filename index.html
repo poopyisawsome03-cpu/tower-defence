@@ -71,7 +71,13 @@
             <div id="wave-info">
                 <p id="wave-preview"></p>
             </div>
-            <button id="start-wave" onclick="startWave()">▶️ Start Wave</button>
+            <div class="wave-controls">
+                <button id="start-wave" onclick="startWave()">▶️ Start Wave</button>
+                <div class="auto-wave-container">
+                    <input type="checkbox" id="auto-wave-check">
+                    <label for="auto-wave-check">Auto Wave</label>
+                </div>
+            </div>
             <button id="back-to-menu" onclick="backToMenu()">🏠 Main Menu</button>
         </div>
     </div>

@@ -137,7 +137,7 @@ class Tower {
         // Draw type-specific turret
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
+        ctx.rotate(-Math.PI / 2); // Always face up
 
         if (this.typeId === 'basic') {
             // Sentry turret - gun barrel

@@ -97,7 +97,7 @@ class GameMap {
                     x, y,
                     type: type,
                     size: 10 + Math.random() * 15,
-                    rotation: Math.random() * Math.PI * 2
+                    rotation: 0
                 };
 
                 if (type === 'flower') {
@@ -189,7 +189,7 @@ class GameMap {
     drawDecoration(ctx, d) {
         ctx.save();
         ctx.translate(d.x, d.y);
-        ctx.rotate(d.rotation);
+        // Map objects stay facing up
 
         if (d.type === 'tree') {
             ctx.fillStyle = "#5d4037";
