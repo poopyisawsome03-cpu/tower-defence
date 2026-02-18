@@ -70,6 +70,10 @@
             </div>
             <div id="wave-info">
                 <p id="wave-preview"></p>
+                <div class="wave-progress">
+                    <div class="wave-progress-bar"></div>
+                </div>
+                <p id="enemies-remaining">Enemies Remaining: 0</p>
             </div>
             <div class="wave-controls">
                 <button id="start-wave" onclick="startWave()">▶️ Start Wave</button>
@@ -81,6 +85,7 @@
             <button id="back-to-menu" onclick="backToMenu()">🏠 Main Menu</button>
         </div>
     </div>
+    <div id="notification-container" aria-live="polite" aria-atomic="true"></div>
     <div id="upgrade-panel" class="hidden">
         <h3 id="tower-name">Tower</h3>
         <p id="tower-stats">Stats...</p>

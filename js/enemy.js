@@ -76,7 +76,7 @@ class Enemy {
 
         ctx.save();
         ctx.translate(this.x, this.y);
-        // Enemies stay facing up
+        ctx.rotate(this.angle + Math.PI/2);
 
         const r = this.radius;
         const wobble = Math.sin(this.animFrame) * 2;

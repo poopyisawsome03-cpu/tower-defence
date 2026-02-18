@@ -16,6 +16,7 @@ let isWaveActive = false;
 let spawning = false;
 let mouseX = 0;
 let mouseY = 0;
+let waveSpawnPool = { total: 0, spawned: 0 };
 
 function getCanvasCoords(event) {
     const rect = canvas.getBoundingClientRect();
@@ -42,10 +43,14 @@ const towerStatsEl = document.getElementById('tower-stats');
 const wavePreviewEl = document.getElementById('wave-preview');
 const cancelPlacementBtn = document.getElementById('cancel-placement');
 const autoWaveCheck = document.getElementById('auto-wave-check');
+const waveProgressBar = document.querySelector('.wave-progress-bar');
+const enemiesRemainingEl = document.getElementById('enemies-remaining');
+const notificationContainer = document.getElementById('notification-container');
 function startGame(mapIndex) {
     mainMenu.classList.add('hidden');
     gameContainer.classList.remove('hidden');
     currentMap = new GameMap(mapIndex);
+    showNotification(`Entering ${currentMap.name}`, 'success');
     resetGame();
     updateWavePreview();
 }
@@ -69,6 +74,31 @@ function updateWavePreview() {
     let preview = `Wave ${nextWave}: `;
     preview += waveData.zombies.map(z => `${z.count}x ${ZOMBIE_TYPES[z.type].name}`).join(', ');
     wavePreviewEl.textContent = preview;
+}
+
+function showNotification(message, type = 'info') {
+    if (!notificationContainer) return;
+    const toast = document.createElement('div');
+    toast.className = `notification ${type}`;
+    toast.textContent = message;
+    notificationContainer.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('visible'));
+    setTimeout(() => {
+        toast.classList.remove('visible');
+        toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+    }, 3200);
+}
+
+function updateWaveProgress() {
+    const total = waveSpawnPool.total;
+    const spawned = waveSpawnPool.spawned;
+    const remainingFromQueue = Math.max(0, total - spawned);
+    const remaining = remainingFromQueue + enemies.length;
+    const percent = total ? Math.min(100, (spawned / total) * 100) : 0;
+    if (waveProgressBar) waveProgressBar.style.width = `${percent}%`;
+    if (enemiesRemainingEl) {
+        enemiesRemainingEl.textContent = total ? `Enemies Remaining: ${remaining}` : 'Enemies Remaining: 0';
+    }
 }
 
 function updateUI() {
@@ -126,6 +156,8 @@ function resetGame() {
     isWaveActive = false;
     spawning = false;
     selectedTower = null;
+    waveSpawnPool = { total: 0, spawned: 0 };
+    updateWaveProgress();
     updateUI();
     if (currentMap) updateWavePreview();
 }
@@ -175,12 +207,17 @@ canvas.addEventListener('mousedown', (e) => {
         selectedTowerType = null;
     } else if (selectedTowerType && currentMap) {
         const cost = TOWER_TYPES[selectedTowerType].cost;
-        if (money >= cost && !currentMap.isNearPath(x, y)) {
-            // Check if place is occupied
+        if (money < cost) {
+            showNotification('Need more cash to deploy that tower', 'warning');
+        } else if (currentMap.isNearPath(x, y)) {
+            showNotification('That spot is too close to the path', 'warning');
+        } else {
             const occupied = towers.some(t => 
                 Math.sqrt(Math.pow(t.x - x, 2) + Math.pow(t.y - y, 2)) < t.radius * 2
             );
-            if (!occupied) {
+            if (occupied) {
+                showNotification('This location is already occupied', 'warning');
+            } else {
                 towers.push(new Tower(selectedTowerType, x, y));
                 money -= cost;
             }
@@ -210,6 +247,7 @@ function startWave() {
     spawning = true;
     wave++;
     updateUI();
+    showNotification(`Wave ${wave} is unleashed!`, 'danger');
 
     // Get wave definition
     let waveData;
@@ -226,6 +264,9 @@ function startWave() {
             spawnQueue.push(group.type);
         }
     }
+    waveSpawnPool.total = spawnQueue.length;
+    waveSpawnPool.spawned = 0;
+    updateWaveProgress();
     
     // Shuffle for variety
     for (let i = spawnQueue.length - 1; i > 0; i--) {
@@ -241,6 +282,8 @@ function startWave() {
         if (spawnIndex < spawnQueue.length) {
             enemies.push(new Enemy(spawnQueue[spawnIndex], currentMap.path, hpMultiplier));
             spawnIndex++;
+            waveSpawnPool.spawned++;
+            updateWaveProgress();
         } else {
             clearInterval(spawnInterval);
             spawning = false;
@@ -291,13 +334,16 @@ function update() {
         const bonus = wave * 10;
         money += bonus;
         updateWavePreview();
+        showNotification(`Wave ${wave} cleared! +$${bonus} bonus`, 'success');
 
         // Auto-wave functionality
         if (autoWaveCheck && autoWaveCheck.checked) {
+            showNotification('Auto Wave queued', 'info');
             setTimeout(startWave, 1000);
         }
     }
 
+    updateWaveProgress();
     updateUI();
 }
 
