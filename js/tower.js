@@ -60,7 +60,9 @@ class Tower {
         }
 
         // Track target with turret
-        if (this.target) {
+        if (this.typeId === 'tesla') {
+            this.angle += 0.05; // Spin forever
+        } else if (this.target) {
             const dx = this.target.x - this.x;
             const dy = this.target.y - this.y;
             this.angle = Math.atan2(dy, dx);
@@ -135,9 +137,10 @@ class Tower {
         ctx.stroke();
 
         // Draw type-specific turret
+        const baseOrientationOffset = this.typeId === 'tesla' ? -Math.PI / 2 : 0;
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.rotate(-Math.PI / 2); // Always face up
+        ctx.rotate(this.angle + baseOrientationOffset); // Rotate toward target
 
         if (this.typeId === 'basic') {
             // Sentry turret - gun barrel

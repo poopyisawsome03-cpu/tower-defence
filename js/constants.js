@@ -32,7 +32,7 @@ const TOWER_TYPES = {
     },
     area: {
         name: "Bomber",
-        cost: 250,
+        cost: 550,
         range: 160,
         fireRate: 90,
         damage: 50,
@@ -46,7 +46,7 @@ const TOWER_TYPES = {
     },
     sniper: {
         name: "Sniper",
-        cost: 350,
+        cost: 650,
         range: 400,
         fireRate: 150,
         damage: 120,
@@ -59,7 +59,7 @@ const TOWER_TYPES = {
     },
     tesla: {
         name: "Tesla",
-        cost: 450,
+        cost: 750,
         range: 180,
         fireRate: 15,
         damage: 10,

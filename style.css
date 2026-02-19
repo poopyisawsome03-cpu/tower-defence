@@ -180,7 +180,6 @@ canvas {
     box-shadow: 0 10px 25px rgba(0,0,0,0.35);
     opacity: 0;
     transform: translateY(-10px) scale(0.98);
-    animation: floatIn 0.4s forwards ease-out;
     transition: opacity 0.3s ease, transform 0.3s ease;
     border: 1px solid rgba(255,255,255,0.15);
     background: rgba(26,35,86,0.95);
@@ -196,11 +195,6 @@ canvas {
 .notification.success { background: linear-gradient(135deg, rgba(46, 204, 113, 0.93), rgba(39, 174, 96, 0.85)); }
 .notification.warning { background: linear-gradient(135deg, rgba(241, 196, 15, 0.95), rgba(230, 126, 34, 0.85)); color: #1a1a1a; }
 .notification.danger { background: linear-gradient(135deg, rgba(231, 76, 60, 0.93), rgba(192, 57, 43, 0.9)); }
-
-@keyframes floatIn {
-    from { opacity: 0; transform: translateY(-12px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
 
 #stats {
     background: rgba(44, 62, 80, 0.8);

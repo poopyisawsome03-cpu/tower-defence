@@ -83,9 +83,17 @@ function showNotification(message, type = 'info') {
     toast.textContent = message;
     notificationContainer.appendChild(toast);
     requestAnimationFrame(() => toast.classList.add('visible'));
+
+    const removeToast = () => {
+        if (toast.parentNode) {
+            toast.remove();
+        }
+    };
+
     setTimeout(() => {
         toast.classList.remove('visible');
-        toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+        toast.addEventListener('transitionend', removeToast, { once: true });
+        setTimeout(removeToast, 450);
     }, 3200);
 }
 
@@ -113,12 +121,19 @@ function updateUI() {
         cancelPlacementBtn.classList.add('hidden');
     }
 
-    // Update shop buttons with affordability
+    // Update shop buttons with affordability and correct labels
     document.querySelectorAll('.shop-item').forEach(btn => {
-        const type = btn.onclick.toString().match(/selectTower\('(\w+)'\)/);
-        if (type) {
-            const cost = TOWER_TYPES[type[1]].cost;
-            btn.disabled = money < cost;
+        const typeMatch = btn.onclick.toString().match(/selectTower\('(\w+)'\)/);
+        if (typeMatch) {
+            const type = typeMatch[1];
+            const stats = TOWER_TYPES[type];
+            btn.disabled = money < stats.cost;
+            
+            // Update cost text if it exists
+            const textSpan = btn.querySelector('span:not(.tower-icon)');
+            if (textSpan) {
+                textSpan.textContent = `${stats.name} ($${stats.cost})`;
+            }
         }
     });
 
